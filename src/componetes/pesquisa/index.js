@@ -1,6 +1,7 @@
 import Input from "../input";
 import styled from "styled-components";
-
+import { useState } from "react";
+import { livros } from "./dadosPesquisa";
 const Titulo = styled.h2`
     font-size: 34px;
     font-weight: 700;
@@ -24,13 +25,22 @@ const PesquisaContainer = styled.section`
     
 `
 function Pesquisa() {
+    const [livrosPesquisados, setLivrosPesquisado] = useState([])
+    console.log(livrosPesquisados)
     return (
         <PesquisaContainer>
             <Titulo>Ja sabe por onde comecar</Titulo>
             <Subtitulo>Encontre seu livro em nossa Estante</Subtitulo>
             <Input
                 placeholder="O que vamos Ler hoje?"
+                onBlur={evento => {
+                    const textoDigitado = evento.target.value
+                    const resultadoPesquisa = livros.filter(livro => livro.titulo.includes(textoDigitado))
+                    setLivrosPesquisado(resultadoPesquisa)
+                    
+                } }
             />
+            
         </PesquisaContainer>
     )
 }
